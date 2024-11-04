@@ -1,8 +1,8 @@
-import React from 'react';
+import Scoreboard from './components/ScoreBoard';
 
 function App() {
   return (
-  <></>
+  <Scoreboard />
   );
 }
 

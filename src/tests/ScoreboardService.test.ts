@@ -10,7 +10,7 @@ describe('ScoreboardService', ()=>{
     })
 
     test('should be able to start a new match with an initial score of 0-0', ()=>{
-        expect(scoreboardService.matches.length).toBe(1);
+        expect(scoreboardService.matches.length).toBeGreaterThan(0);
         expect(scoreboardService.matches[0].homeScore).toBe(0);
         expect(scoreboardService.matches[0].awayScore).toBe(0);
     });

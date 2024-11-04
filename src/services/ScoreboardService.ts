@@ -1,8 +1,7 @@
-import { match } from 'assert';
 import Match from '../models/Match';
 import { MatchStatus } from '../models/MatchStatus';
 
-export default class ScoreBoardService{
+export default class ScoreboardService{
     matches: Match[];
 
     constructor(){
