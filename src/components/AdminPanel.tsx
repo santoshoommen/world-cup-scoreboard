@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import ScoreboardService from '../services/ScoreboardService';
 import { flushSync } from 'react-dom';
 
@@ -16,7 +16,7 @@ const AdminPanel = ({ scoreboardService }: AdminPanelProps) => {
   const [homeScoreToUpdate, setHomeScoreToUpdate] = useState(0);
   const [awayScoreToUpdate, setAwayScoreToUpdate] = useState(0);
   const [matchIdToFinish, setMatchIdToFinish] = useState<number | null>(null);
-
+  
   const handleStartMatch = () => {
     flushSync(() => {
       scoreboardService.startMatch(homeTeam, awayTeam);
@@ -36,8 +36,23 @@ const AdminPanel = ({ scoreboardService }: AdminPanelProps) => {
         setAwayScoreToUpdate(0);
       }
     }
-
   };
+
+
+  useEffect(() => {
+    // Update score from match object when selected match changes
+    if (selectedMatchToUpdate !== null) {
+      const match = scoreboardService.matches.find(match => match.id === selectedMatchToUpdate);
+      if (match) {
+        setHomeScoreToUpdate(match.homeScore);
+        setAwayScoreToUpdate(match.awayScore);
+      }
+    } else {
+      // Reset to 0 when no match is selected
+      setHomeScoreToUpdate(0);
+      setAwayScoreToUpdate(0);
+    }
+  }, [selectedMatchToUpdate, scoreboardService.matches]); 
 
   const handleFinishMatch = () => {
     if (selectedMatchToFinish !== null) {
